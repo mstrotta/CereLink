@@ -816,7 +816,7 @@ void InstNetwork::OnWaitEvent()
         return;
     }
     // Limit how many we can look at
-    pktstogo = std::min(pktstogo, MAX_NUM_OF_PACKETS_TO_PROCESS_PER_PASS);
+    pktstogo = min(pktstogo, MAX_NUM_OF_PACKETS_TO_PROCESS_PER_PASS);
 
     // process any available packets
     for(UINT p = 0; p < pktstogo; ++p)

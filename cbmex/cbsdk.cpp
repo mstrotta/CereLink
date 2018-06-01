@@ -143,7 +143,7 @@ void SdkApp::OnPktGroup(const cbPKT_GROUP * const pkt)
             if (new_write_index >= m_CD->size)
                 new_write_index = 0;
 
-            if (new_write_index != m_CD->write_start_index[ch])
+            if (true) // || (new_write_index != m_CD->write_start_index[ch]) // *MST 06/2018 - change to allow ring buffer to overwrite itself
             {
                 // Store more data
                 m_CD->continuous_channel_data[ch][m_CD->write_index[ch]] = pkt->data[i];
@@ -1841,7 +1841,7 @@ cbSdkResult SdkApp::SdkGetTrialData(uint32_t bActive, cbSdkTrialEvent * trialeve
             if (num_samples < 0)
                 num_samples += m_CD->size;
             // See which one finishes first
-            num_samples = std::min((uint32_t)num_samples, trialcont->num_samples[channel]);
+            num_samples = min((uint32_t)num_samples, trialcont->num_samples[channel]);
             // retrieved number of samples
             trialcont->num_samples[channel] = num_samples;
 
@@ -1988,7 +1988,7 @@ cbSdkResult SdkApp::SdkGetTrialData(uint32_t bActive, cbSdkTrialEvent * trialeve
         if (num_samples < 0)
             num_samples += m_CMT->size;
         // See which one finishes first
-        num_samples = std::min((uint16_t)num_samples, trialcomment->num_samples);
+        num_samples = min((uint16_t)num_samples, trialcomment->num_samples);
         // retrieved number of samples
         trialcomment->num_samples = num_samples;
 
@@ -2053,7 +2053,7 @@ cbSdkResult SdkApp::SdkGetTrialData(uint32_t bActive, cbSdkTrialEvent * trialeve
             if (num_samples < 0)
                 num_samples += m_TR->size;
             // See which one finishes first
-            num_samples = std::min((uint16_t)num_samples, trialtracking->num_samples[id]);
+            num_samples = min((uint16_t)num_samples, trialtracking->num_samples[id]);
             // retrieved number of samples
             trialtracking->num_samples[id] = num_samples;
 
@@ -2102,7 +2102,7 @@ cbSdkResult SdkApp::SdkGetTrialData(uint32_t bActive, cbSdkTrialEvent * trialeve
                 }
                 {
                     uint16_t * dataptr = trialtracking->point_counts[id];
-                    uint16_t pointCount = std::min(m_TR->point_counts[id][read_index], m_TR->max_point_counts[id]);
+                    uint16_t pointCount = min(m_TR->point_counts[id][read_index], m_TR->max_point_counts[id]);
                     if (dataptr)
                         *(dataptr + i) = pointCount;
                     if (trialtracking->coords[id])
@@ -2960,7 +2960,7 @@ cbSdkResult cbSdkUpload(const char * szSrc, const char * szDstDir, uint32_t nIns
     {
         upkt.blockseq = b;
         upkt.blockend = (b == (blocks - 1));
-        upkt.blocksiz = std::min((int32_t) (cbFile - (b * 512)), (int32_t) 512);
+        upkt.blocksiz = min((int32_t) (cbFile - (b * 512)), (int32_t) 512);
         memcpy(&upkt.block[0], pFileData + (b * 512), upkt.blocksiz);
         do {
             cbres = cbSendPacket(&upkt, nInstance);

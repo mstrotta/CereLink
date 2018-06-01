@@ -2205,7 +2205,7 @@ void OnDigitalOut(
                 if (nOffset > 30000)
                     PrintHelp(CBMEX_FUNCTION_DIGITALOUT, true, "Invalid timer offset");
                 int nTotalSamples = 30000 / nTrigChan;
-                chaninfo.highsamples = std::max(1, (int)((float)nTotalSamples * (nTrigValue / 100.0)));
+                chaninfo.highsamples = max(1, (int)((float)nTotalSamples * (nTrigValue / 100.0)));
                 chaninfo.lowsamples = nTotalSamples - chaninfo.highsamples;
                 chaninfo.offset = nOffset;
             }

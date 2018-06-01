@@ -1214,7 +1214,7 @@ void ccf::ReadItem(XmlFile * const xml, T pItem[], int count1, int count2, QStri
         QMap<QString, int> mapItemCount;
         int subcount = 0;
         QStringList lst = xml->childKeys();
-        count1 = std::min(lst.count(), count1);
+        count1 = min(lst.count(), count1);
         for (int i = 0; i < count1; ++i)
         {
             QString strSubKey = lst.at(i);

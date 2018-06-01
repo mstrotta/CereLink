@@ -23,8 +23,8 @@
 // cbhwlib library is currently based on non unicode only
 #undef UNICODE
 #undef _UNICODE
-#ifndef  QT_APP
-    #include "DataVector.h" // TODO: This file is now being used outside of "Single",
+#ifndef  QT_APP *
+   #include "DataVector.h" // TODO: This file is now being used outside of "Single",
 #else
 #ifndef WIN32
     // For non-windows Qt applications
